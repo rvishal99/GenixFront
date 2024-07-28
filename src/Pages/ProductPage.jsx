@@ -308,16 +308,17 @@ function ProductPage() {
                     </div>
                 </div>
                 <div className='w-[19vw] mt-5 ml-5 '>
-                    <div className='max-h-64 overflow-y-auto rounded shadow-lg px-4 py-3  border-gray-300'>
+                    <div className='font-bold'>Bid History</div>
+                    <div className='mt-3 max-h-64 overflow-y-auto rounded shadow-lg px-4 py-3  border-gray-300'>
                         <ul className="space-y-2 ">
                             {reversedBids?.map((bid, index) => (
                                 <li key={bid.currentBid} className="text-black bg-gray-100  py-2 px-1 text-center">
-                                    <span className='text-xs mr-2'>-</span>
+                                    {/* <span className='text-xs mr-2'>-</span> */}
                                     <span className='text-md '>{bid.bidderName}'s bid ${bid.currentBid}</span>
                                 </li>
                             ))}
                             {<li className='py-2 px-1 text-center'>
-                                <span className='text-xs mr-2'>-</span>
+                                {/* <span className='text-xs mr-2'>-</span> */}
                                 <span className='text-md font-bold text-'>Floor bid is: $ {product?.startingBid}</span>
                             </li>}
                         </ul>

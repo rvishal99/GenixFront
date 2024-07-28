@@ -21,6 +21,7 @@ const initialState = {
     resetEmail: '',
 }
 
+// const token =''
 
 export const createAccount = createAsyncThunk("/auth/signup", async (data) => {
     try {
@@ -45,6 +46,10 @@ export const createAccount = createAsyncThunk("/auth/signup", async (data) => {
 
 export const loginAccount = createAsyncThunk("/auth/login", async (data) => {
     try {
+        // const token = getCookie('token')
+        // console.log(token)
+
+
         let res = axiosInstance.post("user/login", data);
         toast.promise(res, {
             loading: "Wait! Authentication in progress..",
@@ -55,6 +60,8 @@ export const loginAccount = createAsyncThunk("/auth/login", async (data) => {
         });
 
         res = await res
+
+        
         return (await res).data
     }
     catch (error) {
@@ -122,17 +129,19 @@ const authSlice = createSlice(
                 .addCase(loginAccount.fulfilled, (state, action) => {
                     localStorage.setItem("data", JSON.stringify(action?.payload?.user));
                     localStorage.setItem("isLoggedIn", true);
-                    localStorage.setItem("isAdmin", action?.payload?.user?.isAdmin);
+                    // localStorage.setItem("isAdmin", action?.payload?.user?.isAdmin);
 
                     console.log("called")
 
                     state.data = action?.payload?.user
 
+                    localStorage.setItem("token",action?.payload?.token)
+
                     console.log(state.data)
 
                     state.isLoggedIn = true
                     //console.log(action?.payload?.user?.isAdmin);
-                    state.isAdmin = action?.payload?.user?.isAdmin;
+                    // state.isAdmin = action?.payload?.user?.isAdmin;
 
                     //console.log(state.isAdmin)
                 })
@@ -140,16 +149,16 @@ const authSlice = createSlice(
                     localStorage.clear();
                     state.data = {}
                     state.isLoggedIn = ''
-                    state.isAdmin = "";
+                    // state.isAdmin = "";
                 })
                 .addCase(getUserData.fulfilled, (state, action) => {
                     if (!action?.payload?.user) return;
                     localStorage.setItem("data", JSON.stringify(action?.payload?.user));
                     localStorage.setItem("isLoggedIn", true);
-                    localStorage.setItem("isAdmin", action?.payload?.user?.isAdmin);
+                    // localStorage.setItem("isAdmin", action?.payload?.user?.isAdmin);
                     state.isLoggedIn = true;
                     state.data = action?.payload?.user;
-                    state.isAdmin = action?.payload?.user?.isAdmin
+                    // state.isAdmin = action?.payload?.user?.isAdmin
                 });
         }
     }

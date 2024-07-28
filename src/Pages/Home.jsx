@@ -10,14 +10,22 @@ import toast from 'react-hot-toast'
 import { getAllProducts } from '../Redux/Slices/productsSlice'
 import ProductCard from '../components/ProductCard'
 import Footer from '../components/Footer'
+import { jwtDecode } from "jwt-decode";
 function Home() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn)
 
-  // console.log(isLoggedIn)
+  const [isLoggedIn, setLoggedIn] = useState(false)
+
+
+  // try {
+  // } catch (error) {
+
+  // }
+
+
 
   const handleLogout = async (e) => {
     e.preventDefault()
@@ -26,14 +34,16 @@ function Home() {
     const res = await dispatch(logoutAccount())
 
     if (res?.payload?.success) {
+      setLoggedIn(false)
       navigate("/")
+
     }
 
   }
 
   const userData = JSON.parse(localStorage.getItem("data"))
   // const userData = {
-        
+
   // }
   const username = userData?.email?.split('@')[0];
 
@@ -45,7 +55,7 @@ function Home() {
     setIsOpen(!isOpen);
   };
 
-  const capitialize = word => word.charAt(0).toUpperCase() + word.slice(1)
+  // const capitialize = word => word.charAt(0).toUpperCase() + word.slice(1)
   const auctions = useSelector((state) => state?.products).productsData
 
 
@@ -58,17 +68,28 @@ function Home() {
 
   useEffect(() => {
     loadProducts()
-  }, [])
+    let token = localStorage.getItem('token')
+    if (token) {
+      token = jwtDecode(token)
+      console.log(token.email)
+      if (token?.email) {
+        setLoggedIn(true)
+      }
+      else {
+        setLoggedIn(false)
+      }
+    }
+  }, [isLoggedIn])
   return (
 
     <>
       <div className="font-manrope flex items-center justify-between p-4 bg-pink-100">
         <Link to="/" className="flex items-center">
-          <img src={Logo} alt="Logo" className="h-10 mr-3 bg-pink-100" />
-          <h1 className="text-xl font-bold">Genix Auctions</h1>
+          <img src={Logo} alt="Logo" className="h-7 md:h-10  mr-3 bg-pink-100" />
+          <h1 className="text-sm md:text-xl font-bold">Genix Auctions</h1>
         </Link>
 
-        <nav className="flex items-center justify-center gap-8">
+        <nav className="text-xs md:text-lg flex items-center justify-center gap-8">
           <Link to="/add-product" className="hover:text-blue-500">Add Product</Link>
           <Link to="/about" className="hover:text-blue-500">About Us</Link>
 
@@ -85,7 +106,7 @@ function Home() {
                     <div className="py-1">
                       <div className="block px-4 py-2 text-sm text-gray-700">
                         <div className='text-black font-semibold'>
-                          {capitialize(userData?.firstName) + ' ' + capitialize(userData?.lastName)}
+                          {userData?.firstName + ' ' + userData?.lastName}
                         </div>
                         <div>
                           {userData?.email}
