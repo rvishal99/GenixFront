@@ -48,14 +48,7 @@ cd genix-auctions
 npm install
 ```
 
-### Set Up Environment Variables
 
-Create a `.env` file in the root directory and add the following environment variables:
-
-```plaintext
-REACT_APP_API_URL=http://your-api-url
-JWT_SECRET=your_jwt_secret_key
-```
 
 ### Run the Application
 
