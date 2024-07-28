@@ -1,7 +1,3 @@
-Here's a sample README file for your project "GENIX AUCTIONS":
-
----
-
 # GENIX AUCTIONS
 
 ## Table of Contents
@@ -106,5 +102,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - GitHub: [rvishal](https://github.com/rvishal99)
 
 ---
-
-Feel free to modify the above template according to your project's specifics and preferences.
