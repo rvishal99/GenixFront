@@ -221,7 +221,7 @@ function ProductPage() {
                                                 View profile
                                             </Link> */}
 
-                                            <Link to="/bids" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+{/*                                             <Link to="/bids" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                                 My bids
                                             </Link>
                                             <Link to="/auctions" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
@@ -229,7 +229,7 @@ function ProductPage() {
                                             </Link>
                                             <Link to="/notifications" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                                 Notifications
-                                            </Link>
+                                            </Link> */}
 
                                             <Link onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                                                 Logout
